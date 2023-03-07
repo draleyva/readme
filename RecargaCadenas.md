@@ -2,7 +2,7 @@
 
 ## Modificaciones
 
-La aplicación ha sido modificada para dar soporte a múltiples cadenas. Los cambios que se han producido en los siguientes ámbitos
+La aplicación ha sido modificada para dar soporte a múltiples cadenas. Los cambios se han producido en los siguientes ámbitos
 
 1. Base de datos
 	Creación de dos nuevas tablas que incluyen el posfijo MT para indicar la naturaleza multithread de la aplicación y cambios en la estructura
