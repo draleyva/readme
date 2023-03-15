@@ -1,20 +1,31 @@
+
 # RecargaCadenas
 
 ## Modificaciones
 
-La aplicación ha sido modificada para dar soporte a múltiples cadenas. Los cambios se han producido en los siguientes ámbitos
+La aplicación ha sido modificada para dar soporte a múltiples cadenas. Los cambios que se han producido en los siguientes ámbitos
 
 1. Base de datos
 	Creación de dos nuevas tablas que incluyen el posfijo MT para indicar la naturaleza multithread de la aplicación y cambios en la estructura
-	
-![Diagrama](https://iili.io/HW4OuUb.png)
+
+![Diagrama](https://iili.io/HX4kP3v.md.png)
 
 - tb_RecargaCadenasConfiguracionMT
 
 	**identidad** es la llave numérica que identificará cada cadena
 	Se añadió un campo **Estado** para habilitar cadena según conveniencia. El símbolo 0 indica deshabilitado
 	**TopUpIdEntidad** que anteriormente estuvo en el archivo de configuración de la aplicación ahora es parte de cada cadena.
-	Los demás parámetros tienen el mismo significado que se ha usado hasta el momento 
+	Los demás parámetros tienen el mismo significado que se ha usado hasta el momento
+	**EventX** Se ha añadido tres grupos de columnas para almacenar la información correspondiente a los eventos de envío de correo : 
+		- Notificación y creación de reporte : Event0
+		- Archivos no existentes : Event1
+		- Saldo insifuciente : Event2
+	Las columnas por cada evento permiten configurar:
+		- EventXEnable : A pesar de ocurrido el evento se puede deshabilitar el envío de correo
+		- EventXSubject : Asunto del correo
+		- EventXBody : Cuerpo del correo
+		- EventXTo, EventXCc y EventXCco : destinatarios del correo
+	
 - tb_RecargaCadenasConfiguracion
 	
 	**identidad** llave foránea parte de  la llave principal para encadenar los registros
@@ -70,5 +81,11 @@ Para establecer la ruta del archivo log se recomienda establecer una ruta absolu
  <appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender">
       ...
       <file value="C:\GKNdevelopment\RecargaCadenas\RecargaCadenas\bin\Release\netcoreapp3.1\log\" />
-
 ```
+## Pruebas
+
+Se ha realizado pruebas básicas que comprenden los siguientes escenarios.
+
+1. Procesamiento de archivo
+2. Eventos de excepción como falta de archivo, saldo insuficiente y terminales que no existen
+3. Procesamiento de múltiples cadenas
